@@ -1,0 +1,23 @@
+<Window x:Class="AlBaraaHR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AlBaraaHR" Height="450" Width="800"
+        FlowDirection="RightToLeft">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,8">
+            <Button Name="BtnAdd" Content="إضافة موظف" Width="120" Margin="0,0,8,0" Click="BtnAdd_Click"/>
+            <Button Name="BtnEdit" Content="تعديل" Width="80" Margin="0,0,8,0" Click="BtnEdit_Click"/>
+            <Button Name="BtnDelete" Content="حذف" Width="80" Margin="0,0,8,0" Click="BtnDelete_Click"/>
+            <Button Name="BtnExport" Content="تصدير CSV" Width="100" Click="BtnExport_Click"/>
+        </StackPanel>
+
+        <DataGrid Name="EmployeesGrid" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="المعرف" Binding="{Binding Id}" Width="80"/>
+                <DataGridTextColumn Header="الاسم" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="الوظيفة" Binding="{Binding Role}" Width="200"/>
+                <DataGridTextColumn Header="البريد" Binding="{Binding Email}" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
