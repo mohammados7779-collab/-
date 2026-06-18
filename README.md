@@ -1,24 +1,31 @@
 # AlBaraaHR
 
-تطبيق سطح مكتب بسيط لإدارة الموظفين (WPF, .NET 8, SQLite).
+تطبيق سطح مكتب بسيط لإدارة الموظفين (WPF, .NET 8, SQL Server).
 
-بناء وتشغيل محلي:
+التغييرات الرئيسية في هذا الإصدار:
+- دعم SQL Server (LocalDB افتراضي وSQL Server Express كخيار احترافي).
+- التطبيق يقرأ سلسلة الاتصال من App/appsettings.json (مفتاح ConnectionStrings:DefaultConnection).
+- المثبّت (Installer/setup.iss) يعرض صفحة اختيار تثبيت LocalDB أو SQL Server Express وينزل المثبّتات الرسمية أثناء التثبيت.
+
+ملاحظة مهمة حول روابط التنزيل في Installer/setup.iss:
+- السكربت يستخدم روابط "placeholder" (روابط توجيه عامة). يُفضّل تحديث الروابط إلى روابط Microsoft الرسمية الخاصة بالإصدار الذي تريد توزيعه (مثال: SQL Server 2022 Express أو LocalDB).
+
+البناء وتشغيل محلي:
 1. انتقل إلى مجلد App:
    cd App
 2. استعادة الحزم وبناء:
    dotnet restore
    dotnet build -c Release
-3. إنشاء/تطبيق المهاجرت (إن رغبت):
-   dotnet tool install --global dotnet-ef
-   dotnet ef migrations add InitialCreate
-   dotnet ef database update
-4. تشغيل:
+3. تشغيل:
    dotnet run
 
-نشر (تولّد نفس الأشياء التي يعمل عليها ملف workflow):
-dotnet publish App/AlBaraaHR.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishReadyToRun=true --output Publish
+نشر (ينتج EXE واحد self-contained):
+ dotnet publish AlBaraaHR.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishReadyToRun=true --output Publish
 
-تجميع المثبّت باستخدام Inno Setup (محليًا):
-- ضع ملف setup.iss داخل مجلد Installer
-- شغّل Inno Setup وابدأ التجميع أو استعمل ISCC.exe:
-  "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" Installer\setup.iss
+بعد النشر:
+- شغّل Inno Setup عبر ISCC.exe على Installer\setup.iss لبناء المثبّت النهائي.
+- أثناء التثبيت سيُطلب من المستخدم اختيار LocalDB أو SQL Server Express؛ ويقوم المثبّت بتنزيل وتثبيت المُكوّنات المطلوبة بصمت.
+
+ملاحظات أمان:
+- تثبيت SQL Server Express يتطلب امتيازات مسؤولي (admin). سكربت المثبّت يضبط PrivilegesRequired=admin.
+- معلمات تثبيت SQL Express (ككلمة المرور وعناصر التهيئة) هي أمثلة ويمكن تخصيصها أو مطالبة المستخدم بتحديدها أثناء التثبيت.
