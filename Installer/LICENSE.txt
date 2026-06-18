@@ -1,0 +1,12 @@
+AlBaraaHR - تطبيق إدارة الموظفين
+Copyright (c) 2026
+
+جميع الحقوق محفوظة.
+
+يُسمح باستخدام هذا البرنامج وفقاً للشروط والأحكام المرفقة.
+
+تم تطوير هذا التطبيق باستخدام:
+- .NET 8.0
+- WPF (Windows Presentation Foundation)
+- Entity Framework Core
+- SQLite
